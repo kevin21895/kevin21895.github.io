@@ -1,340 +1,410 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-117163186-1"></script>
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kevin Doshi · Principal Data Scientist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0a0a;--surface:#111;--surface2:#161616;--border:#1e1e1e;--border2:#2a2a2a;--text:#f0ede6;--muted:#555;--muted2:#888;--accent:#96e072;--accent2:#c8ff6e}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;line-height:1.6;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:rgba(10,10,10,0.92);backdrop-filter:blur(12px)}
+.nav-logo{font-family:'Instrument Serif',serif;font-size:1.1rem;font-style:italic;color:var(--accent);text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--accent)}
+.hero{min-height:100vh;padding:7rem 2.5rem 3rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(150,224,114,0.04) 0%,transparent 70%);pointer-events:none}
+.hero-left{opacity:0;animation:fadeUp 0.8s 0.1s forwards}
+.eyebrow{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.hero-name{font-family:'Instrument Serif',serif;font-size:clamp(3rem,6vw,5rem);font-weight:400;line-height:0.95;letter-spacing:-0.02em;margin-bottom:1.5rem}
+.hero-name em{font-style:italic;color:var(--accent)}
+.hero-title{font-size:0.72rem;color:var(--muted2);letter-spacing:0.05em;margin-bottom:1.5rem;line-height:1.8}
+.hero-title strong{color:var(--text);font-weight:500}
+.hero-desc{font-size:0.85rem;color:var(--muted2);line-height:1.8;max-width:480px;margin-bottom:2rem}
+.hero-ctas{display:flex;gap:0.75rem;flex-wrap:wrap}
+.btn{font-family:'Syne',sans-serif;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.65rem 1.25rem;border-radius:2px;cursor:pointer;text-decoration:none;transition:all 0.15s;display:inline-block}
+.btn-primary{background:var(--accent);color:#0a0a0a;border:1px solid var(--accent);font-weight:700}
+.btn-primary:hover{background:var(--accent2);border-color:var(--accent2)}
+.btn-outline{background:transparent;color:var(--muted2);border:1px solid var(--border2)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.hero-chat{opacity:0;animation:fadeUp 0.8s 0.3s forwards}
+.chat-card{background:var(--surface);border:1px solid var(--border2);border-radius:4px;overflow:hidden}
+.chat-header{padding:0.85rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.75rem}
+.chat-avatar{width:32px;height:32px;border-radius:2px;background:var(--accent);color:#0a0a0a;display:flex;align-items:center;justify-content:center;font-size:0.6rem;font-weight:800;letter-spacing:0.05em}
+.chat-header-name{font-size:0.78rem;font-weight:600;color:var(--text)}
+.chat-header-sub{font-size:0.58rem;color:var(--muted2);display:flex;align-items:center;gap:0.4rem}
+.online-dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.chat-suggestions{padding:0.75rem 1.25rem;border-bottom:1px solid var(--border);display:flex;gap:0.4rem;flex-wrap:wrap}
+.sug{font-size:0.58rem;padding:4px 10px;border:1px solid var(--border2);border-radius:2px;cursor:pointer;color:var(--muted2);background:transparent;font-family:'Syne',sans-serif;transition:all 0.15s}
+.sug:hover{border-color:var(--accent);color:var(--accent)}
+.chat-messages{height:280px;overflow-y:auto;padding:1rem 1.25rem;display:flex;flex-direction:column;gap:1rem}
+.chat-messages::-webkit-scrollbar{width:3px}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--border2)}
+.msg{display:flex;gap:0.75rem;align-items:flex-start;animation:msgIn 0.25s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg-av{width:24px;height:24px;border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.5rem;font-weight:700;margin-top:2px}
+.msg.bot .msg-av{background:var(--accent);color:#0a0a0a}
+.msg.user .msg-av{background:var(--border2);color:var(--muted2)}
+.msg-who{font-size:0.52rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.msg-text{font-size:0.76rem;line-height:1.65;color:var(--text)}
+.msg.user .msg-text{color:var(--muted2)}
+.msg-text strong{color:var(--accent2);font-weight:600}
+.typing{display:flex;gap:3px;align-items:center;padding:3px 0}
+.typing span{width:4px;height:4px;border-radius:50%;background:var(--accent);animation:bounce 1.2s infinite}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:0.4}40%{transform:translateY(-5px);opacity:1}}
+.chat-input-row{border-top:1px solid var(--border);padding:0.75rem 1.25rem;display:flex;gap:0.5rem;align-items:center}
+.chat-input{flex:1;background:var(--surface2);border:1px solid var(--border2);color:var(--text);font-family:'Syne',sans-serif;font-size:0.72rem;padding:0.55rem 0.85rem;border-radius:2px;outline:none;transition:border-color 0.2s}
+.chat-input::placeholder{color:var(--muted)}
+.chat-input:focus{border-color:var(--accent)}
+.chat-send{background:var(--accent);color:#0a0a0a;border:none;font-family:'Syne',sans-serif;font-size:0.58rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.55rem 1rem;border-radius:2px;cursor:pointer;transition:all 0.15s}
+.chat-send:hover{background:var(--accent2)}
+.chat-send:disabled{opacity:0.3;cursor:not-allowed}
+section{padding:5rem 2.5rem;border-bottom:1px solid var(--border)}
+.section-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:2.5rem;display:flex;align-items:center;gap:0.75rem}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border2)}
+.section-title{font-family:'Instrument Serif',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:400;line-height:1.1;margin-bottom:1.5rem}
+.section-title em{font-style:italic;color:var(--accent)}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.metric-cell{background:var(--bg);padding:2rem 1.5rem;position:relative;overflow:hidden}
+.metric-cell::after{content:'';position:absolute;bottom:0;left:0;height:2px;background:var(--accent);width:0;transition:width 1.2s ease}
+.metric-cell.animate::after{width:100%}
+.metric-num{font-family:'Instrument Serif',serif;font-size:3rem;font-weight:400;line-height:1;color:var(--text)}
+.metric-unit{font-size:1.5rem;color:var(--muted2)}
+.metric-label{font-size:0.62rem;color:var(--muted2);margin-top:0.5rem;line-height:1.5}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-text{font-size:0.88rem;color:var(--muted2);line-height:1.9}
+.about-text p{margin-bottom:1rem}
+.about-text strong{color:var(--text);font-weight:500}
+.timeline{display:flex;flex-direction:column}
+.tl-item{display:grid;grid-template-columns:70px 1fr;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border)}
+.tl-item:last-child{border-bottom:none}
+.tl-year{font-size:0.6rem;color:var(--muted);padding-top:3px;font-family:'DM Mono',monospace}
+.tl-role{font-size:0.82rem;font-weight:500;color:var(--text);line-height:1.3}
+.tl-co{font-size:0.62rem;color:var(--muted2);margin-top:2px}
+.tl-badge{display:inline-block;margin-top:5px;font-size:0.55rem;background:rgba(150,224,114,0.1);color:var(--accent);padding:2px 8px;border-radius:2px;border:1px solid rgba(150,224,114,0.2)}
+.skills-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.skill-group{margin-bottom:2rem}
+.skill-group-label{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);margin-bottom:1rem}
+.skill-row{display:flex;align-items:center;gap:1rem;padding:0.5rem 0;border-bottom:1px solid var(--border)}
+.skill-row:last-child{border-bottom:none}
+.skill-name{font-size:0.68rem;width:160px;flex-shrink:0;color:var(--text)}
+.skill-bar-wrap{flex:1;height:2px;background:var(--border2);overflow:hidden;min-width:0}
+.skill-bar{height:100%;width:0;transition:width 1.4s cubic-bezier(0.16,1,0.3,1)}
+.skill-bar.green{background:var(--accent)}
+.skill-bar.dim{background:var(--accent)}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:6px;margin-top:1.5rem}
+.tag{font-size:0.58rem;padding:4px 10px;border:1px solid var(--border2);color:var(--muted2);border-radius:2px;transition:all 0.15s;cursor:default}
+.tag:hover{border-color:var(--accent);color:var(--accent)}
+.projects-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.project-card{background:var(--bg);padding:2rem;transition:background 0.2s;position:relative}
+.project-card:hover{background:var(--surface)}
+.project-era{font-size:0.55rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem}
+.era-badge{font-size:0.52rem;padding:2px 6px;border-radius:2px;background:rgba(255,255,255,0.04);color:var(--muted);border:1px solid var(--border2)}
+.project-title{font-family:'Instrument Serif',serif;font-size:1.1rem;font-weight:400;line-height:1.2;margin-bottom:0.75rem;color:var(--text)}
+.project-desc{font-size:0.7rem;color:var(--muted2);line-height:1.7;margin-bottom:1rem}
+.project-metric{font-size:0.62rem;font-weight:600;color:var(--accent);font-family:'DM Mono',monospace}
+.project-link{display:inline-block;margin-top:0.75rem;font-size:0.58rem;color:var(--muted);text-decoration:none;transition:color 0.2s}
+.project-link:hover{color:var(--accent)}
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-desc{font-size:0.85rem;color:var(--muted2);line-height:1.8;margin-bottom:2rem}
+.contact-links{display:flex;flex-direction:column}
+.contact-row{display:flex;align-items:center;justify-content:space-between;padding:0.85rem 0;border-bottom:1px solid var(--border)}
+.contact-row:last-child{border-bottom:none}
+.contact-row-label{font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.contact-row-val{font-size:0.78rem;color:var(--text)}
+.contact-row-val a{color:var(--accent);text-decoration:none}
+.contact-row-val a:hover{color:var(--accent2)}
+footer{padding:1.5rem 2.5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.58rem;color:var(--muted)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.7s ease,transform 0.7s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding-top:6rem;gap:2rem}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .about-grid,.skills-layout,.contact-layout{grid-template-columns:1fr}
+  .projects-grid{grid-template-columns:1fr}
+  nav{padding:1rem 1.5rem}
+  .nav-links{gap:1.25rem}
+  section{padding:3rem 1.5rem}
+  .hero{padding:6rem 1.5rem 2rem}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#" class="nav-logo">Kevin Doshi</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="eyebrow"><div class="dot"></div> Open to new opportunities</div>
+    <h1 class="hero-name">Kevin<br><em>Doshi</em></h1>
+    <div class="hero-title"><strong>Principal Data Scientist</strong> · Hewlett Packard Enterprise<br>Austin, TX · 7 years building ML at scale</div>
+    <p class="hero-desc">I build production ML systems, define metrics that move executive decisions, and deploy GenAI solutions that make data accessible at scale. From 1B+ monthly transactions to agentic AI that cut analyst bottlenecks by 40%.</p>
+    <div class="hero-ctas">
+      <a href="resume.pdf" target="_blank" class="btn btn-primary">View Resume ↗</a>
+      <a href="https://github.com/kevin21895" target="_blank" class="btn btn-outline">GitHub</a>
+      <a href="https://linkedin.com/in/kevindoshi" target="_blank" class="btn btn-outline">LinkedIn</a>
+    </div>
+  </div>
+  <div class="hero-chat">
+    <div class="chat-card">
+      <div class="chat-header">
+        <div class="chat-avatar">KD</div>
+        <div>
+          <div class="chat-header-name">Ask Kevin anything</div>
+          <div class="chat-header-sub"><div class="online-dot"></div> Live AI · Powered by Claude</div>
+        </div>
+      </div>
+      <div class="chat-suggestions">
+        <button class="sug" onclick="ask(this)">Strongest project?</button>
+        <button class="sug" onclick="ask(this)">GenAI work?</button>
+        <button class="sug" onclick="ask(this)">Handle ambiguity?</button>
+        <button class="sug" onclick="ask(this)">Leadership style?</button>
+        <button class="sug" onclick="ask(this)">Stakeholder example?</button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg bot">
+          <div class="msg-av">KD</div>
+          <div>
+            <div class="msg-who">Kevin · AI</div>
+            <div class="msg-text">Hey — I'm an AI built on Kevin's background. Ask me anything you'd want answered before a screen call: his projects, how he thinks, what he'd bring to a team.</div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input-row">
+        <input class="chat-input" id="chatInput" type="text" placeholder="Ask anything..." autocomplete="off"/>
+        <button class="chat-send" id="chatSend" onclick="sendMsg()">Send ↗</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section style="padding:0;border-bottom:1px solid var(--border)">
+  <div class="metrics-grid" id="metricsGrid">
+    <div class="metric-cell"><div class="metric-num">1B<span class="metric-unit">+</span></div><div class="metric-label">Monthly transactions processed · analytics platform</div></div>
+    <div class="metric-cell"><div class="metric-num">40<span class="metric-unit">%</span></div><div class="metric-label">Reduction in data team requests via production agentic AI</div></div>
+    <div class="metric-cell"><div class="metric-num">85<span class="metric-unit">%</span></div><div class="metric-label">Precision on churn prediction model · 500K+ customer records</div></div>
+    <div class="metric-cell"><div class="metric-num">81<span class="metric-unit">%</span></div><div class="metric-label">Forecast accuracy · ARIMA/Prophet · 1-year backtested</div></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid fade-in">
+    <div>
+      <h2 class="section-title">Data scientist.<br><em>Product thinker.</em></h2>
+      <div class="about-text">
+        <p>I'm a Principal Data Scientist at <strong>Hewlett Packard Enterprise</strong> in Austin, TX, leading a cross-functional team building analytics platforms that process over <strong>1 billion monthly transactions</strong>.</p>
+        <p>My work spans the full stack: from defining metrics that change executive policy, to shipping production ML models at scale, to building <strong>GenAI-powered systems</strong> that make data accessible to non-technical users. I care about the last mile — not just the model, but whether the insight actually moves a decision.</p>
+        <p>MS in IT & Analytics from <strong>Rutgers Business School</strong> (GPA 3.80). Applied Generative AI Specialization at <strong>Purdue University</strong>, 2025.</p>
+      </div>
+    </div>
+    <div>
+      <div class="section-label" style="margin-bottom:1rem">Career</div>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-year">2025→now</div><div><div class="tl-role">Principal Data Scientist</div><div class="tl-co">HPE · Austin, TX</div><span class="tl-badge">1B+ transactions/mo</span></div></div>
+        <div class="tl-item"><div class="tl-year">2022→2025</div><div><div class="tl-role">Senior Data Scientist</div><div class="tl-co">HPE · Austin, TX</div><span class="tl-badge">Agentic AI · Forecasting · Churn</span></div></div>
+        <div class="tl-item"><div class="tl-year">2020→2021</div><div><div class="tl-role">Data Scientist III</div><div class="tl-co">HPE · Roseville, CA</div><span class="tl-badge">ML risk scoring</span></div></div>
+        <div class="tl-item"><div class="tl-year">2018→2020</div><div><div class="tl-role">IT Engineer – Analytics</div><div class="tl-co">HPE · Santa Clara, CA</div><span class="tl-badge">Dashboards · Pipelines</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-label">Skills</div>
+  <div class="skills-layout fade-in" id="skillsSection">
+    <div>
+      <div class="skill-group">
+        <div class="skill-group-label">Core technical</div>
+        <div class="skill-row"><div class="skill-name">Python</div><div class="skill-bar-wrap"><div class="skill-bar green" data-w="96"></div></div></div>
+        <div class="skill-row"><div class="skill-name">SQL (multi-dialect)</div><div class="skill-bar-wrap"><div class="skill-bar green" data-w="94"></div></div></div>
+        <div class="skill-row"><div class="skill-name">ML & statistical modeling</div><div class="skill-bar-wrap"><div class="skill-bar green" data-w="93"></div></div></div>
+        <div class="skill-row"><div class="skill-name">Causal inference & A/B</div><div class="skill-bar-wrap"><div class="skill-bar green" data-w="90"></div></div></div>
+        <div class="skill-row"><div class="skill-name">Time series forecasting</div><div class="skill-bar-wrap"><div class="skill-bar green" data-w="88"></div></div></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">GenAI & agentic systems</div>
+        <div class="skill-row"><div class="skill-name">LangChain · RAG · FAISS</div><div class="skill-bar-wrap"><div class="skill-bar green" data-w="88"></div></div></div>
+        <div class="skill-row"><div class="skill-name">OpenAI LLMs</div><div class="skill-bar-wrap"><div class="skill-bar green" data-w="85"></div></div></div>
+        <div class="skill-row"><div class="skill-name">Prompt engineering</div><div class="skill-bar-wrap"><div class="skill-bar green" data-w="84"></div></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="skill-group">
+        <div class="skill-group-label">Data engineering</div>
+        <div class="skill-row"><div class="skill-name">Snowflake · Snowpark</div><div class="skill-bar-wrap"><div class="skill-bar dim" data-w="88"></div></div></div>
+        <div class="skill-row"><div class="skill-name">Vertica · HiveQL · Presto</div><div class="skill-bar-wrap"><div class="skill-bar dim" data-w="85"></div></div></div>
+        <div class="skill-row"><div class="skill-name">REST APIs · GraphQL</div><div class="skill-bar-wrap"><div class="skill-bar dim" data-w="82"></div></div></div>
+        <div class="skill-row"><div class="skill-name">ETL pipelines</div><div class="skill-bar-wrap"><div class="skill-bar dim" data-w="86"></div></div></div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-label">Visualization</div>
+        <div class="skill-row"><div class="skill-name">Tableau · Power BI</div><div class="skill-bar-wrap"><div class="skill-bar dim" data-w="90"></div></div></div>
+        <div class="skill-row"><div class="skill-name">Qlik Sense · Dataiku</div><div class="skill-bar-wrap"><div class="skill-bar dim" data-w="80"></div></div></div>
+      </div>
+      <div class="tag-cloud">
+        <span class="tag">ARIMA</span><span class="tag">Prophet</span><span class="tag">XGBoost</span>
+        <span class="tag">scikit-learn</span><span class="tag">Clustering</span><span class="tag">NLP</span>
+        <span class="tag">Classification</span><span class="tag">Regression</span><span class="tag">Optimization</span>
+        <span class="tag">SQL Server</span><span class="tag">R</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-label">Projects</div>
+  <div class="projects-grid fade-in">
+    <div class="project-card">
+      <div class="project-era"><span class="era-badge">Academic · 2018</span></div>
+      <div class="project-title">Currency exchange rate forecasting</div>
+      <div class="project-desc">Time-series analysis of USD/INR exchange rates over 44 years using R. Applied ARIMA modeling to forecast the 6-month trajectory and performed trend decomposition across the full historical window.</div>
+      <div class="project-metric">85% forecast accuracy</div>
+      <a href="https://github.com/kevin21895/Currency_Exchange_Rate" target="_blank" class="project-link">View on GitHub ↗</a>
+    </div>
+    <div class="project-card">
+      <div class="project-era"><span class="era-badge">Academic · 2018</span></div>
+      <div class="project-title">Predictive analysis of Zillow Rent Index</div>
+      <div class="project-desc">Predicted NJ Rent Index 6 months forward using Polynomial Regression with scikit-learn and NumPy. Trend analysis across 7 years of Zillow data to surface regional pricing patterns.</div>
+      <div class="project-metric">90% accuracy</div>
+      <a href="https://github.com/kevin21895/Predictive-Analysis-of-Zillow-Rent-Index" target="_blank" class="project-link">View on GitHub ↗</a>
+    </div>
+    <div class="project-card">
+      <div class="project-era"><span class="era-badge">Academic · 2018</span></div>
+      <div class="project-title">Data mining application</div>
+      <div class="project-desc">Implemented K-means clustering, Naïve Bayesian Classification, and Linear Regression on an e-commerce dataset using Java and MySQL. Predictive analysis to determine price change patterns.</div>
+      <div class="project-metric">3 algorithms · e-commerce dataset</div>
+      <a href="https://github.com/kevin21895/Data-Mining" target="_blank" class="project-link">View on GitHub ↗</a>
+    </div>
+    <div class="project-card">
+      <div class="project-era"><span class="era-badge">This site · 2026</span></div>
+      <div class="project-title">AI-powered personal site</div>
+      <div class="project-desc">Built this site with an embedded live AI chatbot grounded in my resume — using the Anthropic Claude API. Recruiters can ask questions and get answers in real time, just like a screen call.</div>
+      <div class="project-metric">Powered by Claude · Built with AI</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <div class="contact-layout fade-in">
+    <div>
+      <h2 class="section-title">Let's build<br><em>something great.</em></h2>
+      <p class="contact-desc">Open to Staff and Principal Data Scientist roles where data science is inseparable from product impact. Based in Austin, TX — open to remote.</p>
+      <a href="assets\img\KevinDoshiForecasting.pdf" target="_blank" class="btn btn-primary">Download Resume ↗</a>
+    </div>
+    <div class="contact-links">
+      <div class="contact-row"><div class="contact-row-label">Email</div><div class="contact-row-val"><a href="mailto:doshikevin95@gmail.com">doshikevin95@gmail.com</a></div></div>
+      <div class="contact-row"><div class="contact-row-label">Location</div><div class="contact-row-val">Austin, Texas · Open to remote</div></div>
+      <div class="contact-row"><div class="contact-row-label">GitHub</div><div class="contact-row-val"><a href="https://github.com/kevin21895" target="_blank">github.com/kevin21895</a></div></div>
+      <div class="contact-row"><div class="contact-row-label">LinkedIn</div><div class="contact-row-val"><a href="https://linkedin.com/in/kevindoshi" target="_blank">linkedin.com/in/kevindoshi</a></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Kevin Doshi · Principal Data Scientist · Austin, TX</span>
+  <span>Built with Claude · 2026</span>
+</footer>
+
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+const SYSTEM=`You are an AI version of Kevin Doshi, a Principal Data Scientist open to Staff and Principal DS roles. Answer in first person as Kevin — warm, direct, specific. Never break character or say you are an AI.
 
-  gtag('config', 'UA-117163186-1');
+Background:
+- Principal DS at HPE (Apr 2025–present): Leading 4-person team, trade compliance analytics platform 1B+ monthly transactions, architecting revenue forecasting system end-to-end
+- Senior DS at HPE (2022–2025): Agentic AI (LangChain, RAG, OpenAI LLMs) → 40% reduction in data team requests. GenAI topic modeling + sentiment pipeline on support tickets → insights for Finance leadership. Propensity-to-buy on 100M+ records → 7% pricing accuracy. A/B experiment → 3% revenue uplift. Defined Net Escalation Margin metric via causal inference → 5% conversion impact, policy change, optimization model → 15% Finance efficiency gain. Revenue forecasting ARIMA/Prophet 81% accuracy 1-yr backtested. Monitoring framework 3M+ daily records 80+ apps → 17% faster incident response. Churn model Snowflake/Snowpark 500K+ records 85% precision. Mentored 8 junior data scientists.
+- DS III (2020–2021): ML risk assessment 5K monthly orders
+- IT Engineer Analytics (2018–2020): Dashboards + pipelines → 16% efficiency gain
+- Skills: Python, SQL, LangChain, RAG, FAISS, OpenAI LLMs, Snowflake, Snowpark, Vertica, HiveQL, Presto, ARIMA, Prophet, causal inference, A/B, clustering, classification, Tableau, Power BI, Qlik Sense, Dataiku
+- Education: MS IT & Analytics Rutgers GPA 3.80, BE IT Mumbai GPA 3.73, Applied GenAI Purdue 2025
+Keep answers concise and human. Use real numbers when relevant.`;
+
+let history=[];
+
+async function sendMsg(text){
+  const input=document.getElementById('chatInput'),btn=document.getElementById('chatSend');
+  const msg=text||input.value.trim();
+  if(!msg)return;
+  input.value='';btn.disabled=true;
+  appendMsg('user','You',msg);
+  history.push({role:'user',content:msg});
+  const tid=appendTyping();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM,messages:history})});
+    const data=await res.json();
+    const reply=data.content?.[0]?.text||'Something went wrong — try again.';
+    removeTyping(tid);appendMsg('bot','Kevin · AI',reply);
+    history.push({role:'assistant',content:reply});
+  }catch(e){removeTyping(tid);appendMsg('bot','Kevin · AI',"Couldn't connect — try again.");}
+  btn.disabled=false;
+}
+
+function ask(el){sendMsg(el.textContent);}
+
+function appendMsg(type,sender,text){
+  const area=document.getElementById('chatMessages');
+  const d=document.createElement('div');d.className='msg '+type;
+  d.innerHTML='<div class="msg-av">'+(type==='bot'?'KD':'Q')+'</div><div><div class="msg-who">'+sender+'</div><div class="msg-text">'+fmt(text)+'</div></div>';
+  area.appendChild(d);area.scrollTop=area.scrollHeight;
+}
+
+function fmt(t){return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');}
+
+function appendTyping(){
+  const area=document.getElementById('chatMessages');
+  const id='ty-'+Date.now();const d=document.createElement('div');
+  d.className='msg bot';d.id=id;
+  d.innerHTML='<div class="msg-av">KD</div><div><div class="msg-who">Kevin · AI</div><div class="typing"><span></span><span></span><span></span></div></div>';
+  area.appendChild(d);area.scrollTop=area.scrollHeight;return id;
+}
+
+function removeTyping(id){const e=document.getElementById(id);if(e)e.remove();}
+
+document.getElementById('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
+
+// Fade in
+const fadeObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.08});
+document.querySelectorAll('.fade-in').forEach(el=>fadeObs.observe(el));
+
+// Skill bars — fire when any skill-bar scrolls into view, no threshold tricks
+function animateBars(){
+  document.querySelectorAll('.skill-bar').forEach(b=>{
+    b.style.width=b.getAttribute('data-w')+'%';
+  });
+}
+function isInView(el){
+  const r=el.getBoundingClientRect();
+  return r.top < window.innerHeight && r.bottom > 0;
+}
+let barsAnimated=false;
+function checkBars(){
+  if(barsAnimated)return;
+  const ss=document.getElementById('skillsSection');
+  if(ss&&isInView(ss)){barsAnimated=true;animateBars();}
+}
+window.addEventListener('scroll',checkBars,{passive:true});
+// Also try on load in case skills section is already visible
+window.addEventListener('load',function(){setTimeout(checkBars,100);});
+
+// Metric underlines
+const metObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){document.querySelectorAll('.metric-cell').forEach(c=>c.classList.add('animate'));metObs.disconnect();}});},{threshold:0.2});
+const mg=document.getElementById('metricsGrid');if(mg)metObs.observe(mg);
 </script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="assets/ico/favicon.png">
-
-    <title>KEVIN DOSHI</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="assets/css/main.css" rel="stylesheet">
-
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
-
-    <script src="assets/js/jquery.min.js"></script>
-    <script type="text/javascript" src="assets/js/smoothscroll.js"></script>
-    <script src="assets/js/Chart.js"></script>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="assets/js/html5shiv.js"></script>
-      <script src="assets/js/respond.min.js"></script>
-    <![endif]-->
-  </head>
-
-  <body data-spy="scroll" data-offset="0" data-target="#nav">
-	<div id="section-topbar">
-		<div id="topbar-inner">
-			<div class="container">
-				<div class="row">
-					<div class="dropdown">
-						<ul id="nav" class="nav">
-							<li class="menu-item"><a class="assets\js\smoothScroll" href="#about" title="About"><i class="icon-user"></i></a></li>
-							<li class="menu-item"><a class="assets\js\smoothScroll" href="#resume" title="Resume"><i class="icon-file"></i></a></li>
-							<li class="menu-item"><a class="assets\js\smoothScroll" href="#work" title="Works"><i class="icon-briefcase"></i></a></li>
-							<li class="menu-item"><a class="assets\js\smoothScroll" href="#contact" title="Contact"><i class="icon-envelope"></i></a></li>
-						</ul><!--/ uL#nav -->
-					</div><!-- /.dropdown -->
-
-					<div class="clear"></div>
-				</div><!--/.row -->
-			</div><!--/.container -->
-
-			<div class="clear"></div>
-		</div><!--/ #topbar-inner -->
-	</div><!--/ #section-topbar -->
-
-	<div id="headerwrap">
-		<div class="container">
-			<div class="row centered">
-				<div class="col-lg-12">
-					<h1>Kevin Doshi</h1>
-					<h3>Senior Data Scientist at Hewlett Packard Enterprise Company</h3>
-				</div><!--/.col-lg-12 -->
-			</div><!--/.row -->
-		</div><!--/.container -->
-	</div><!--/.#headerwrap -->
-
-
-	<section id="about" name="about"></section>
-	<div id="intro">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-lg-2 col-lg-offset-1">
-					<h5>ABOUT</h5>
-				</div>
-				<div class="col-lg-6">
-					<p>I’m Kevin Doshi, a Data Scientist and Machine Learning Engineer specializing in pricing optimization, system resiliency, and predictive modeling. At Hewlett Packard Enterprise, I’ve led projects impacting $100M+ in revenue through advanced machine learning and unified data platforms. Skilled in Python, Dataiku, Power BI, and time series forecasting, I’m passionate about turning data into actionable business insights and mentoring teams to deliver impactful solutions.</p>
-				</div>
-				<div class="col-lg-3">
-					<p><a href="assets\img\Resume_KevinDoshi.pdf"><i class="icon-file"></i></a> <sm>RESUME</sm></p>
-				</div>
-
-			</div><!--/.row -->
-		</div><!--/.container -->
-	</div><!--/ #intro -->
-
-
-	<section id="resume" name="resume"></section>
-	<!--EDUCATION DESCRIPTION -->
-	<div class="container desc">
-		<div class="row">
-
-				<div class="col-lg-2 col-lg-offset-1">
-					<h5>EDUCATION</h5>
-				</div>
-				<div class="col-lg-6">
-					<p><t>Masters in IT and Analytics</t><br/>
-						Rutgers University <br/>
-						<i>New Brunswick, New Jersey, USA</i>
-					</p>
-				</div>
-				<div class="col-lg-3">
-					<p><sm>DECEMBER 2018</sm><br/>
-					</p>
-				</div>
-
-				<div class="col-lg-6 col-lg-offset-3">
-					<p><t>Bachelor of Engineering (Major in IT)</t><br/>
-						University of Mumbai <br/>
-						<i>Mumbai, Maharashtra, India</i>
-					</p>
-				</div>
-				<div class="col-lg-3">
-					<p><sm>JUNE 2017</sm></p>
-				</div>
-
-		</div><!--/.row -->
-		<br>
-
-	</div><!--/.container -->
-
-
-
-
-	<!--SKILLS DESCRIPTION -->
-  <div id="skillswrap">
-		<div class="container">
-			<div class="row">
-					<div class="col-lg-2 col-lg-offset-1">
-						<h5>SKILLS</h5>
-					</div>
-					<div class="col-lg-3 centered">
-						<canvas id="javascript" height="130" width="130"></canvas>
-						<p>Python</p>
-						<br>
-						<script>
-							var doughnutData = [
-									{
-										value: 80,
-										color:"#1abc9c"
-									},
-									{
-										value : 20,
-										color : "#ecf0f1"
-									}
-								];
-								var myDoughnut = new Chart(document.getElementById("javascript").getContext("2d")).Doughnut(doughnutData);
-						</script>
-					</div>
-					<div class="col-lg-3 centered">
-						<canvas id="bootstrap" height="130" width="130"></canvas>
-						<p>R</p>
-						<br>
-						<script>
-							var doughnutData = [
-									{
-										value: 85,
-										color:"#1abc9c"
-									},
-									{
-										value : 15,
-										color : "#ecf0f1"
-									}
-								];
-								var myDoughnut = new Chart(document.getElementById("bootstrap").getContext("2d")).Doughnut(doughnutData);
-						</script>
-					</div>
-					<div class="col-lg-3 centered">
-						<canvas id="wordpress" height="130" width="130"></canvas>
-						<p>SQL</p>
-						<br>
-						<script>
-							var doughnutData = [
-									{
-										value: 80,
-										color:"#1abc9c"
-									},
-									{
-										value : 20,
-										color : "#ecf0f1"
-									}
-								];
-								var myDoughnut = new Chart(document.getElementById("wordpress").getContext("2d")).Doughnut(doughnutData);
-						</script>
-					</div>
-
-					<div class="col-lg-3 col-lg-offset-3 centered">
-						<canvas id="html" height="130" width="130"></canvas>
-						<p>Microsoft Power BI</p>
-						<br>
-						<script>
-							var doughnutData = [
-									{
-										value: 75,
-										color:"#1abc9c"
-									},
-									{
-										value : 25,
-										color : "#ecf0f1"
-									}
-								];
-								var myDoughnut = new Chart(document.getElementById("html").getContext("2d")).Doughnut(doughnutData);
-						</script>
-					</div>
-					<div class="col-lg-3 centered">
-						<canvas id="photoshop" height="130" width="130"></canvas>
-						<p>Machine Learning</p>
-						<br>
-						<script>
-							var doughnutData = [
-									{
-										value: 70,
-										color:"#1abc9c"
-									},
-									{
-										value : 30,
-										color : "#ecf0f1"
-									}
-								];
-								var myDoughnut = new Chart(document.getElementById("photoshop").getContext("2d")).Doughnut(doughnutData);
-						</script>
-					</div>
-					<div class="col-lg-3 centered">
-						<canvas id="illustrator" height="130" width="130"></canvas>
-						<p>Time Series Analysis</p>
-						<br>
-						<script>
-							var doughnutData = [
-									{
-										value: 65,
-										color:"#1abc9c"
-									},
-									{
-										value : 35,
-										color : "#ecf0f1"
-									}
-								];
-								var myDoughnut = new Chart(document.getElementById("illustrator").getContext("2d")).Doughnut(doughnutData);
-						</script>
-					</div>
-
-			</div><!--/.row -->
-
-			<br>
-		</div><!--/.container -->
-	</div><!--/ #skillswrap -->
-
-	<section id="work" name="work"></section>
-	<!--PORTFOLIO DESCRIPTION -->
-	<div class="container desc">
-		<div class="row">
-				<div class="col-lg-2 col-lg-offset-1">
-					<h5>PROJECTS</h5>
-				</div>
-				<div class="col-lg-6">
-					<p><img class="img-responsive" src="assets/img/forecast.jpeg" alt=""></p>
-				</div>
-				<div class="col-lg-3">
-					<a href ="https://github.com/kevin21895/Currency_Exchange_Rate"><p>Forecasting currency exchange rate</p></a>
-				<p><more>Performed Time-Series analysis on exchange rate of United States Dollars and Indian National Rupees for last 44 years using R and forecasted exchange rate for next 6 months with 85% accuracy<br/><br/>
-					<sm><i class="icon-tag"></i>R</sm>&nbsp&nbsp<sm><i class="icon-tag"></i>Time Series Analysis</sm></more>
-				</p>
-				</div>
-
-				<div class="col-lg-6 col-lg-offset-3">
-					<p><img class="img-responsive" src="assets/img/Forecast1.jpg" alt=""></p>
-				</div>
-				<div class="col-lg-3">
-						<a href="https://github.com/kevin21895/Predictive-Analysis-of-Zillow-Rent-Index"><p>Predictive Anaysis of Rent Index</p></a>
-					<p><more>Predicted Rent Index for New Jersey State for next 6 months using Polynomial Regression with an accuracy of 90% using packages like Scikit-learning and NumPy. Performed trend analysis on rent index of New Jersey State for the period of 7 years using Pandas.<br/><br/>
-						<sm><i class="icon-tag"></i>Python</sm>&nbsp&nbsp<sm><i class="icon-tag"></i>Machine Learning</sm>&nbsp&nbsp<sm><i class="icon-tag"></i>Pandas</sm>&nbsp&nbsp<sm><i class="icon-tag"></i>NumPy</sm></more>
-					</p>
-				</div>
-
-				<div class="col-lg-6 col-lg-offset-3">
-					<p><img class="img-responsive" src="assets/img/data-mining.jpg" alt=""></p>
-				</div>
-				<div class="col-lg-3">
-						<a href ="https://github.com/kevin21895/Data-Mining"><p>Data Mining Application</p></a>
-					<p><more>Implemented various data mining algorithms such as K-means clustering, Naïve Bayesian Classification and Linear Regression analysis on E-commerce shopping dataset using Java and MySQL. Performed predictive analysis to determine change in price.<br/><br/>
-						<sm><i class="icon-tag"></i>Java</sm>&nbsp&nbsp<sm><i class="icon-tag"></i>SQL</sm>&nbsp&nbsp<sm><i class="icon-tag"></i>PHP</sm></more>
-					</p>
-				</div>
-
-		</div><!--/.row -->
-		<br>
-		<br>
-	</div><!--/.container -->
-
-
-
-	<section id="contact" name="contact"></section>
-	<!--FOOTER DESCRIPTION -->
-	<div id="footwrap">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-lg-2 col-lg-offset-1">
-					<h5>CONTACT</h5>
-				</div>
-				<div class="col-lg-6">
-					<p><t>Email</t><br/>
-						doshikevin95@gmail.com <br/>
-					</p>
-				</div>
-				<div class="col-lg-3">
-					<p><sm>SOCIAL LINKS</sm></p>
-					<p>
-            <a href="https://www.linkedin.com/in/kevin-doshi"><i class="icon-linkedin"></i></a>
-            <a href="https://github.com/kevin21895"><i class="icon-github"></i></a>
-						<a href="https://www.facebook.com/kevin.doshi.372"><i class="icon-facebook"></i></a>
-
-
-
-					</p>
-				</div>
-			</div><!--/.row -->
-		</div><!--/.container -->
-	</div><!--/ #footer -->
-
-
-	</div>
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="assets/js/bootstrap.js"></script>
-  </body>
+</body>
 </html>
